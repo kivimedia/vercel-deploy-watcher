@@ -1,0 +1,22 @@
+#!/bin/bash
+# Global pre-push hook: spawns Vercel deploy monitor in background.
+# Since the monitor waits 70s before polling, it naturally runs after push completes.
+# Works in any IDE (Cursor, VS Code, terminal).
+
+# Only monitor if the Vercel deploy-check script exists
+MONITOR_SCRIPT="$HOME/.claude/hooks/vercel-deploy-check.sh"
+if [ ! -f "$MONITOR_SCRIPT" ]; then
+  exit 0
+fi
+
+# Get the commit being pushed
+SHA=$(git log -1 --format='%H' 2>/dev/null)
+if [ -z "$SHA" ]; then
+  exit 0
+fi
+
+# Spawn the monitor in background (won't block the push)
+nohup bash "$MONITOR_SCRIPT" "$SHA" > /tmp/vercel-deploy-$(date +%s).log 2>&1 &
+
+# Always let the push proceed
+exit 0
