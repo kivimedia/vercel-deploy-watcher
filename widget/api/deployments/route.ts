@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
-const VERCEL_TOKEN = process.env.VERCEL_TOKEN;
-const TEAM_ID = process.env.VERCEL_TEAM_ID;
+const VERCEL_TOKEN = process.env.VDW_VERCEL_TOKEN;
+const TEAM_ID = process.env.VDW_VERCEL_TEAM_ID;
 
 export const dynamic = 'force-dynamic';
 
@@ -16,12 +16,12 @@ export const dynamic = 'force-dynamic';
  *   - projectId=xxx     - filter deployments by project
  *   - state=ERROR       - filter deployments by state
  *
- * Required env vars: VERCEL_TOKEN, VERCEL_TEAM_ID
+ * Required env vars: VDW_VERCEL_TOKEN, VDW_VERCEL_TEAM_ID
  */
 export async function GET(request: Request) {
   if (!VERCEL_TOKEN || !TEAM_ID) {
     return NextResponse.json(
-      { error: 'Vercel credentials not configured (VERCEL_TOKEN, VERCEL_TEAM_ID)' },
+      { error: 'Vercel credentials not configured (VDW_VERCEL_TOKEN, VDW_VERCEL_TEAM_ID)' },
       { status: 500 },
     );
   }

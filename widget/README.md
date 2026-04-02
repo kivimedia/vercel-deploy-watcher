@@ -110,14 +110,16 @@ In collapsed mode the widget renders nothing when the deployment is `READY`. It 
 Add these to your `.env.local` (and to your Vercel project environment variables):
 
 ```
-VERCEL_TOKEN=your_vercel_api_token
-VERCEL_TEAM_ID=your_vercel_team_id
-VERCEL_PROJECT_ID=the_project_to_monitor
+VDW_VERCEL_TOKEN=your_vercel_api_token
+VDW_VERCEL_TEAM_ID=your_vercel_team_id
+VDW_VERCEL_PROJECT_ID=the_project_to_monitor
 ```
 
-- **VERCEL_TOKEN** - create one at https://vercel.com/account/tokens (scope: read deployments)
-- **VERCEL_TEAM_ID** - found in your Vercel team settings URL or via `vercel teams ls`
-- **VERCEL_PROJECT_ID** - found in your Vercel project settings, under "Project ID"
+> **Why the `VDW_` prefix?** The Vercel CLI reserves `VERCEL_TOKEN`, `VERCEL_TEAM_ID`, and `VERCEL_PROJECT_ID` as its own internal env vars. If you set those names as Vercel project environment variables, the CLI picks them up during build and can break with errors like an invalid `--token` value. The `VDW_` prefix avoids the collision entirely.
+
+- **VDW_VERCEL_TOKEN** - create one at https://vercel.com/account/tokens (scope: read deployments)
+- **VDW_VERCEL_TEAM_ID** - found in your Vercel team settings URL or via `vercel teams ls`
+- **VDW_VERCEL_PROJECT_ID** - found in your Vercel project settings, under "Project ID"
 
 ### Step 6 (Optional): Add the deployments page
 

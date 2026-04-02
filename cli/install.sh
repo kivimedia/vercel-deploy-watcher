@@ -19,7 +19,7 @@
 # Requirements:
 #   - Node.js (for JSON parsing)
 #   - curl
-#   - VERCEL_TOKEN set as an environment variable (or Windows User env var)
+#   - VDW_VERCEL_TOKEN set as an environment variable (or Windows User env var)
 #   - VERCEL_ORG_ID (optional, for Vercel team accounts)
 # =============================================================================
 
@@ -51,8 +51,8 @@ cat > ~/.claude/hooks/vercel-deploy-check.sh << 'SCRIPT_EOF'
 # Usage: vercel-deploy-check.sh [commit_sha]
 
 # Load Vercel env vars from Windows if not in bash env
-if [ -z "$VERCEL_TOKEN" ]; then
-  VERCEL_TOKEN=$(powershell.exe -Command "[Environment]::GetEnvironmentVariable('VERCEL_TOKEN', 'User')" 2>/dev/null | tr -d '\r')
+if [ -z "$VDW_VERCEL_TOKEN" ]; then
+  VDW_VERCEL_TOKEN=$(powershell.exe -Command "[Environment]::GetEnvironmentVariable('VDW_VERCEL_TOKEN', 'User')" 2>/dev/null | tr -d '\r')
 fi
 if [ -z "$VERCEL_ORG_ID" ]; then
   VERCEL_ORG_ID=$(powershell.exe -Command "[Environment]::GetEnvironmentVariable('VERCEL_ORG_ID', 'User')" 2>/dev/null | tr -d '\r')
@@ -66,8 +66,8 @@ if [ -z "$SHA" ]; then
   exit 1
 fi
 
-if [ -z "$VERCEL_TOKEN" ]; then
-  echo "ERROR: VERCEL_TOKEN not set (check Windows User env vars)"
+if [ -z "$VDW_VERCEL_TOKEN" ]; then
+  echo "ERROR: VDW_VERCEL_TOKEN not set (check Windows User env vars)"
   exit 1
 fi
 
@@ -81,7 +81,7 @@ echo "[$(TZ='Asia/Jerusalem' date '+%H:%M:%S IST')] Waiting 70s for build to sta
 sleep 70
 
 for i in $(seq 1 6); do
-  RESPONSE=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
+  RESPONSE=$(curl -s -H "Authorization: Bearer $VDW_VERCEL_TOKEN" \
     "https://api.vercel.com/v6/deployments?limit=10&sort=created&direction=desc${TEAM_PARAM}" 2>/dev/null)
 
   RESULT=$(echo "$RESPONSE" | node -e "
@@ -211,7 +211,7 @@ echo -e "  Deploy logs:     ${CYAN}/tmp/vercel-deploy-*.log${RESET}"
 echo ""
 echo -e "${YELLOW}REQUIRED: Set these environment variables:${RESET}"
 echo ""
-echo -e "  ${BOLD}VERCEL_TOKEN${RESET}   - Your Vercel API token"
+echo -e "  ${BOLD}VDW_VERCEL_TOKEN${RESET}   - Your Vercel API token"
 echo -e "               Get one at: https://vercel.com/account/tokens"
 echo ""
 echo -e "  ${BOLD}VERCEL_ORG_ID${RESET}  - Your Vercel team/org ID (optional, for team accounts)"

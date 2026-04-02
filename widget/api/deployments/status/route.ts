@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 
-const VERCEL_TOKEN = process.env.VERCEL_TOKEN;
-const TEAM_ID = process.env.VERCEL_TEAM_ID;
-const PROJECT_ID = process.env.VERCEL_PROJECT_ID;
+const VERCEL_TOKEN = process.env.VDW_VERCEL_TOKEN;
+const TEAM_ID = process.env.VDW_VERCEL_TEAM_ID;
+const PROJECT_ID = process.env.VDW_VERCEL_PROJECT_ID;
 
 export const dynamic = 'force-dynamic';
 
@@ -24,7 +24,7 @@ export type DeploymentStatusPayload = {
  * Returns the latest deployment for your project.
  * No auth by default - add your own middleware if needed.
  *
- * Required env vars: VERCEL_TOKEN, VERCEL_TEAM_ID, VERCEL_PROJECT_ID
+ * Required env vars: VDW_VERCEL_TOKEN, VDW_VERCEL_TEAM_ID, VDW_VERCEL_PROJECT_ID
  */
 export async function GET() {
   // ------------------------------------------------------------------
@@ -41,7 +41,7 @@ export async function GET() {
         createdAt: null,
         readyAt: null,
         url: null,
-        error: 'Vercel env not configured (VERCEL_TOKEN, VERCEL_TEAM_ID, VERCEL_PROJECT_ID)',
+        error: 'Vercel env not configured (VDW_VERCEL_TOKEN, VDW_VERCEL_TEAM_ID, VDW_VERCEL_PROJECT_ID)',
       } satisfies DeploymentStatusPayload & { error?: string },
     });
   }

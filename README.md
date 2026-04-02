@@ -37,7 +37,7 @@ bash <(curl -s https://raw.githubusercontent.com/kivimedia/vercel-deploy-watcher
 - Node.js (used for JSON parsing)
 - curl (included in Git Bash on Windows)
 - Git Bash on Windows, or any bash shell on Mac/Linux
-- `VERCEL_TOKEN` set as an environment variable
+- `VDW_VERCEL_TOKEN` set as an environment variable
 - `VERCEL_ORG_ID` (optional, for team accounts)
 
 ### Getting your Vercel token
@@ -46,7 +46,7 @@ bash <(curl -s https://raw.githubusercontent.com/kivimedia/vercel-deploy-watcher
 2. Create a token with "Full Account" scope
 3. Set it as an environment variable:
    - **Windows**: Win+R > `systempropertiesadvanced` > Environment Variables > User variables > New
-   - **Mac/Linux**: Add `export VERCEL_TOKEN=...` to your `.bashrc` or `.zshrc`
+   - **Mac/Linux**: Add `export VDW_VERCEL_TOKEN=...` to your `.bashrc` or `.zshrc`
 
 ### Manual usage
 
@@ -109,7 +109,7 @@ import { VercelDeployStatus } from '@/components/VercelDeployStatus'
 
 - Next.js 14+ with App Router
 - Tailwind CSS
-- `VERCEL_TOKEN` and `VERCEL_PROJECT_ID` set in your `.env.local`
+- `VDW_VERCEL_TOKEN` and `VDW_VERCEL_PROJECT_ID` set in your `.env.local`
 - `VERCEL_ORG_ID` (optional, for team accounts)
 
 See [widget/README.md](widget/README.md) for the full setup guide, env var reference, and the `/deployments` dashboard docs.
